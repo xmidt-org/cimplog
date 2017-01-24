@@ -12,17 +12,17 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-set(PROJ_WRPC cimplog)
+set(PROJ_CIMPL cimplog)
 
 file(GLOB HEADERS cimplog.h cimplog.h)
 set(SOURCES cimplog.c)
 
-add_library(${PROJ_WRPC} STATIC ${HEADERS} ${SOURCES})
-add_library(${PROJ_WRPC}.shared SHARED ${HEADERS} ${SOURCES})
-set_target_properties(${PROJ_WRPC}.shared PROPERTIES OUTPUT_NAME ${PROJ_WRPC})
-set_property(TARGET ${PROJ_WRPC} PROPERTY C_STANDARD 99)
-set_property(TARGET ${PROJ_WRPC}.shared PROPERTY C_STANDARD 99)
+add_library(${PROJ_CIMPL} STATIC ${HEADERS} ${SOURCES})
+add_library(${PROJ_CIMPL}.shared SHARED ${HEADERS} ${SOURCES})
+set_target_properties(${PROJ_CIMPL}.shared PROPERTIES OUTPUT_NAME ${PROJ_CIMPL})
+set_property(TARGET ${PROJ_CIMPL} PROPERTY C_STANDARD 99)
+set_property(TARGET ${PROJ_CIMPL}.shared PROPERTY C_STANDARD 99)
 
-install (TARGETS ${PROJ_WRPC} DESTINATION lib${LIB_SUFFIX})
-install (TARGETS ${PROJ_WRPC}.shared DESTINATION lib${LIB_SUFFIX})
-install (FILES cimplog.h DESTINATION include/${PROJ_WRPC})
+install (TARGETS ${PROJ_CIMPL} DESTINATION lib${LIB_SUFFIX})
+install (TARGETS ${PROJ_CIMPL}.shared DESTINATION lib${LIB_SUFFIX})
+install (FILES cimplog.h DESTINATION include/${PROJ_CIMPL})
