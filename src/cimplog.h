@@ -23,8 +23,6 @@
 #define LEVEL_INFO     1
 #define LEVEL_DEBUG    2
 
-#define MAX_BUF_SIZE   1024
-
 #define cimplog_error(module, ...)    __cimplog(module, LEVEL_ERROR, __VA_ARGS__)
 #define cimplog_info(module, ...)     __cimplog(module, LEVEL_INFO, __VA_ARGS__)
 #define cimplog_debug(module, ...)    __cimplog(module, LEVEL_DEBUG, __VA_ARGS__)

@@ -2,59 +2,26 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+
 #include "cimplog.h"
+
+#define MAX_BUF_SIZE 1024
 
 void __cimplog(const char *module, int level, const char *msg, ...)
 {
-    char buf[MAX_BUF_SIZE], *bp;
-    int nbytes, module_length = strlen(module);
+    static const char *_level[] = { "Error", "Info", "Debug", "Unknown" };
     va_list arg_ptr;
+    char buf[MAX_BUF_SIZE];
+    int nbytes;
     struct timespec ts;
 
-    clock_gettime(CLOCK_REALTIME, &ts);
-    nbytes = sprintf(buf, "[%09ld] ", ts.tv_sec); 
-    if( nbytes < 0 )
-    {   
-        printf("Error occurred in sprintf\n");
-        return;
-    }
-    bp = buf+nbytes;
-    nbytes = snprintf(bp, module_length+4, "[%s] ", module);
-    if( nbytes < 0 )
-    {   
-        printf("Error occurred in snprintf, module\n");
-        return;
-    }
-    bp += nbytes;
-
-    if( level == LEVEL_ERROR )
-    {
-        nbytes = snprintf(bp, 8, "Error: ");
-    }   
-    else if( level == LEVEL_INFO )
-    {   
-        nbytes = snprintf(bp, 7, "Info: ");
-    }   
-    else if( level == LEVEL_DEBUG )
-    {   
-        nbytes = snprintf(bp, 8, "Debug: ");
-    }
-    if( nbytes < 0 )
-    {   
-        printf("Error occurred in snprintf, level\n");
-        return;
-    }
-    bp += nbytes;
-
     va_start(arg_ptr, msg);
-    nbytes = vsnprintf(bp, (MAX_BUF_SIZE - (bp - buf)), msg, arg_ptr);
+    nbytes = vsnprintf(buf, MAX_BUF_SIZE, msg, arg_ptr);
     va_end(arg_ptr);
-    if( nbytes < 0 )
-    {
-        printf("Error occurred in vsnprintf\n");
-        return;
-    }
+    buf[nbytes]='\0';
 
-    printf("%s", buf);
+    clock_gettime(CLOCK_REALTIME, &ts);
+
+    printf("[%09ld][%s][%s]: %s", ts.tv_sec, module, _level[0x3 & level], buf);
 }
 
