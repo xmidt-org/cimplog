@@ -5,20 +5,21 @@ env:
   global:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
    #   via the "travis encrypt" command using the project repo's public key
-   - secure: "xxx"
+   - secure: "jvPEfwY79m5c2Ck86PJ24cOg/zh4XKwE6FJ6D2p2BhRVe0Yv2nYbV+Vj/F9YFnbS7q6NeAqmO8SjnomrGlHbCTJDG1phkWPVP/teBvyekZlNNFvfR+dP75wgTeH4K9kwMk2sNI+p5YWrJmKj80zV3de1FaDXgVSflYdpvcy6uR+XxnM15OZjPpiK0qrVwe96CDGs+EoqWQ/Cf4h1aDQlwuQB5INcU7Vsp8KEjy4xzMM86IN1ctR8mA02M7GYaVQOOo0h2y49sUTGt94wmPrsrBTmjV/DpOoabYEWt74/I7mVmwwv4csYs5KsCBrckChenvmRA9QbtKXDCFwgHF2dRgugDIV9dks+83WfltUQVTjOMbqLkkxtM3VlY78kdr5CxPnqHUaqpJZN4iGFVV6LILXk3ZBuOoizccR40xEvm9//oI5vRotYi5nG09TVwcBvEwps1rNY+vdoDrBNWBQ7QvxXkTLSOp3X5KosYirzSAbqUHNKuorm0H4xf3qICGBsZgqwofY3P91RfGXuRqkk5nlEZytPRkw/Yg4xJjMFs6ygvGyqrvIJ8dW/uUgHo5fp6LStuXyMLD7as+adrTflh/MAA6LBWhSs6unX43YXmxPO/XmRAQoEcZ8jHy2YVor8H8pcRg/WO+2uSQLRxIGJiOWrOqYljwdNp+xItpUDTmY="
 
 #addons:
-#  coverity_scan:
-#    project:
-#      name: "Comcast/cimplog"
-#      description: "Simple logging library for rdklogger"
-#    notification_email: weston_schmidt@alumni.purdue.edu
-#    build_command_prepend: "mkdir coverity_build && cd coverity_build && cmake .."
-#    build_command:   "make"
-#    branch_pattern: master
+  coverity_scan:
+    project:
+      name: "Comcast/cimplog"
+      description: "Simple logging library for rdklogger"
+    notification_email: weston_schmidt@alumni.purdue.edu
+    build_command_prepend: "mkdir coverity_build && cd coverity_build && cmake .."
+    build_command:   "make"
+    branch_pattern: master
 
 before_install:
     - sudo pip install codecov
+    - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 
 install:
     - sudo apt-get update -qq
