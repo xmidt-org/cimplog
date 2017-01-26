@@ -7,7 +7,7 @@ env:
    #   via the "travis encrypt" command using the project repo's public key
    - secure: "jvPEfwY79m5c2Ck86PJ24cOg/zh4XKwE6FJ6D2p2BhRVe0Yv2nYbV+Vj/F9YFnbS7q6NeAqmO8SjnomrGlHbCTJDG1phkWPVP/teBvyekZlNNFvfR+dP75wgTeH4K9kwMk2sNI+p5YWrJmKj80zV3de1FaDXgVSflYdpvcy6uR+XxnM15OZjPpiK0qrVwe96CDGs+EoqWQ/Cf4h1aDQlwuQB5INcU7Vsp8KEjy4xzMM86IN1ctR8mA02M7GYaVQOOo0h2y49sUTGt94wmPrsrBTmjV/DpOoabYEWt74/I7mVmwwv4csYs5KsCBrckChenvmRA9QbtKXDCFwgHF2dRgugDIV9dks+83WfltUQVTjOMbqLkkxtM3VlY78kdr5CxPnqHUaqpJZN4iGFVV6LILXk3ZBuOoizccR40xEvm9//oI5vRotYi5nG09TVwcBvEwps1rNY+vdoDrBNWBQ7QvxXkTLSOp3X5KosYirzSAbqUHNKuorm0H4xf3qICGBsZgqwofY3P91RfGXuRqkk5nlEZytPRkw/Yg4xJjMFs6ygvGyqrvIJ8dW/uUgHo5fp6LStuXyMLD7as+adrTflh/MAA6LBWhSs6unX43YXmxPO/XmRAQoEcZ8jHy2YVor8H8pcRg/WO+2uSQLRxIGJiOWrOqYljwdNp+xItpUDTmY="
 
-#addons:
+addons:
   coverity_scan:
     project:
       name: "Comcast/cimplog"
