@@ -25,7 +25,17 @@ target_link_libraries (simple gcov)
 target_link_libraries (simple cunit)
 target_link_libraries (simple rt)
 
+add_test(NAME SimpleRDKLogger COMMAND simpleRDKLogger)
+include_directories ( ../tests )
+add_executable(simpleRDKLogger simple-rdk-logger.c ../src/cimplog-rdk-logger.c)
+set_property(TARGET simpleRDKLogger PROPERTY C_STANDARD 99)
+
+target_link_libraries (simpleRDKLogger gcov)
+target_link_libraries (simpleRDKLogger cunit)
+target_link_libraries (simpleRDKLogger rt)
+
 add_custom_target(coverage
                   COMMAND lcov -q --capture --directory ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/simple.dir/__/src --output-file coverage.info
+                  COMMAND lcov -q --capture --directory ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/simpleRDKLogger.dir/__/src --output-file coverage.info
                   COMMAND genhtml coverage.info
                   WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
