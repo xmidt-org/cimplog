@@ -36,4 +36,14 @@
 */
 void __cimplog(const char *module, int level, const char *msg, ...);
 
+/**
+* @brief handle log message based on log level and error code
+* 
+* @param module string identifying library/module
+* @param level of log is info,debug,error
+* @param error code (usually errno)
+* @param msg message
+*/
+void __cimplog_err (const char *module, int level, int err_code, const char *msg, ...);
+
 #endif
