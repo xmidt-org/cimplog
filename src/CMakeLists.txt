@@ -23,10 +23,14 @@ endif (RDK_LOGGER)
 
 add_library(${PROJ_CIMPL} STATIC ${HEADERS} ${SOURCES})
 add_library(${PROJ_CIMPL}.shared SHARED ${HEADERS} ${SOURCES})
-set_target_properties(${PROJ_CIMPL}.shared PROPERTIES OUTPUT_NAME ${PROJ_CIMPL})
-set_property(TARGET ${PROJ_CIMPL} PROPERTY C_STANDARD 99)
-set_property(TARGET ${PROJ_CIMPL}.shared PROPERTY C_STANDARD 99)
+set_target_properties(${PROJ_CIMPL}.shared PROPERTIES 
+        OUTPUT_NAME ${PROJ_CIMPL}
+        SOVERSION "1.0.0")
 
+install (TARGETS ${PROJ_CIMPL} 
+         RUNTIME DESTINATION bin
+         LIBRARY DESTINATION lib
+         ARCHIVE DESTINATION lib)
 install (TARGETS ${PROJ_CIMPL} DESTINATION lib${LIB_SUFFIX})
 install (TARGETS ${PROJ_CIMPL}.shared DESTINATION lib${LIB_SUFFIX})
 install (FILES cimplog.h DESTINATION include/${PROJ_CIMPL})

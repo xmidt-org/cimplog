@@ -36,16 +36,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_GNU_SOURCE -DNOPOLL_LOGGER ")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Wno-missing-field-initializers")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall")
 
-
-# pthread external dependency
-#-------------------------------------------------------------------------------
-find_package (Threads)
-
-link_directories ( ${LIBRARY_DIR} ${LIBRARY_DIR64})
-
 add_subdirectory(src)
 if (BUILD_TESTING)
     add_subdirectory(tests)
 endif (BUILD_TESTING)
-
-#add_subdirectory(lib)
