@@ -28,6 +28,11 @@
 #define cimplog_debug(module, ...)    __cimplog(module, LEVEL_DEBUG, __VA_ARGS__)
 
 /**
+* @brief initialization
+*/
+void cimplog_init(void);
+
+/**
 * @brief handle log message based on log level
 * 
 * @param module string identifying library/module

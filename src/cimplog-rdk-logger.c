@@ -7,6 +7,11 @@
 
 #define MAX_BUF_SIZE 1024
 
+void cimplog_init(void)
+{
+    rdk_logger_init("/etc/debug.ini");
+}
+
 void __cimplog(const char *module, int level, const char *msg, ...)
 {
     static const rdk_LogLevel _level[] = { RDK_LOG_ERROR, RDK_LOG_INFO, RDK_LOG_DEBUG };
@@ -19,6 +24,6 @@ void __cimplog(const char *module, int level, const char *msg, ...)
     va_end(arg_ptr);
     buf[nbytes] = '\0';
 
-    RDK_LOG(_level[0x2 & level], module, "%s", buf);
+    RDK_LOG(_level[0x2 & level], module, "TEST-%s", buf);
 }
 

@@ -26,6 +26,12 @@
 
 #define MAX_BUF_SIZE 1024
 
+int rdk_logger_init(char* str)
+{
+    printf("%s", str);
+    return 0;
+}
+
 void log_rdk(rdk_LogLevel level, const char *module,
         const char *format, ...)
 {
