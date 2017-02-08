@@ -7,11 +7,6 @@
 
 #define MAX_BUF_SIZE 1024
 
-void cimplog_init(void)
-{
-   /* Empty stub. */
-}
-
 void __cimplog(const char *module, int level, const char *msg, ...)
 {
     static const char *_level[] = { "Error", "Info", "Debug", "Unknown" };
