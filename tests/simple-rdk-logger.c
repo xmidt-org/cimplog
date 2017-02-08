@@ -32,11 +32,6 @@ int rdk_logger_init(char* str)
     return 0;
 }
 
-char *__attribute__((weak)) rdk_logger_module_fetch(void)
-{
-    return ("simpleRDKLogger");
-}
-
 void log_rdk(rdk_LogLevel level, const char *module,
         const char *format, ...)
 {

@@ -25,6 +25,7 @@ void __cimplog(const char *module, int level, const char *msg, ...)
     {
         rdk_logger_init("/etc/debug.ini");
         tmp = rdk_logger_module_fetch();
+        memset((void *)__rdk_logger_module, '\0', sizeof(__rdk_logger_module));
         if( tmp )
         {
             int nlen_str = strlen(tmp);
@@ -41,5 +42,10 @@ void __cimplog(const char *module, int level, const char *msg, ...)
     buf[nbytes] = '\0';
 
     RDK_LOG(_level[0x2 & level], __rdk_logger_module, "%s: %s", module, buf);
+}
+
+char *rdk_logger_module_fetch(void)
+{
+    return ("NO MODULE");
 }
 
