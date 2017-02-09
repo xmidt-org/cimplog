@@ -12,9 +12,9 @@ const char *__attribute__((weak)) rdk_logger_module_fetch(void);
 void __cimplog(const char *module, int level, const char *msg, ...)
 {
     static const rdk_LogLevel _level[] = { RDK_LOG_ERROR, RDK_LOG_INFO, RDK_LOG_DEBUG };
+    static const char *rdk_logger_module = NULL;
     va_list arg_ptr;
     char buf[MAX_BUF_SIZE];
-    const char *rdk_logger_module = NULL;
     int nbytes;
 
     if( NULL == rdk_logger_module )
