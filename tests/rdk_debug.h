@@ -12,4 +12,6 @@ void log_rdk(rdk_LogLevel level, const char *module,
 
 #define RDK_LOG log_rdk
 
+int rdk_logger_init(char* str);
+
 #endif /* _RDK_DEBUG_H_ */

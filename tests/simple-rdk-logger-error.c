@@ -32,11 +32,6 @@ int rdk_logger_init(char* str)
     return 0;
 }
 
-const char *rdk_logger_module_fetch(void)
-{
-    return ("simpleRDKLogger");
-}
-
 void log_rdk(rdk_LogLevel level, const char *module,
         const char *format, ...)
 {
@@ -56,7 +51,7 @@ void log_rdk(rdk_LogLevel level, const char *module,
     printf("[%09ld][%s][%s]: %s", ts.tv_sec, module, _level[0x2 & level], buf);
 }
 
-void test_simple()
+void test_err()
 {
     char mod2[] = "Module2", mod3[] = "Module3";
 
@@ -70,7 +65,7 @@ void test_simple()
 void add_suites( CU_pSuite *suite )
 {
     *suite = CU_add_suite( "cimplog tests", NULL, NULL );
-    CU_add_test( *suite, "Test simple logging", test_simple );
+    CU_add_test( *suite, "Test simple logging error", test_err );
 }
 
 /*----------------------------------------------------------------------------*/
