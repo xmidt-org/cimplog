@@ -24,7 +24,7 @@ void __cimplog(const char *module, int level, const char *msg, ...)
     {
         rdk_logger_init("/etc/debug.ini");
         rdk_logger_module = rdk_logger_module_fetch();
-        if( !rdk_logger_module || strcmp(rdk_logger_module, DEFAULT_MODULE))
+        if( NULL != rdk_logger_module || 0 == strcmp(rdk_logger_module, DEFAULT_MODULE))
         {
             printf("\nERROR: Unable to initialize RDK logging!!!\n");
             return;
