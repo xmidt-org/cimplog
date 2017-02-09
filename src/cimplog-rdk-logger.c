@@ -7,7 +7,6 @@
 #include "cimplog.h"
 
 #define MAX_BUF_SIZE 1024
-#define DEFAULT_MODULE "NO MODULE"
 
 const char *__attribute__((weak)) rdk_logger_module_fetch(void);
 
@@ -24,10 +23,10 @@ void __cimplog(const char *module, int level, const char *msg, ...)
     {
         rdk_logger_init("/etc/debug.ini");
         rdk_logger_module = rdk_logger_module_fetch();
-        if( NULL != rdk_logger_module || 0 == strcmp(rdk_logger_module, DEFAULT_MODULE))
+	if( NULL == rdk_logger_module )
         {
-            printf("\nERROR: Unable to initialize RDK logging!!!\n");
-            return;
+            fprintf(stderr, "\nERROR: Unable to initialize RDK logging!!!\n");
+            exit(0);
         }
         __rdk_logger_init = true;
     }
@@ -42,6 +41,6 @@ void __cimplog(const char *module, int level, const char *msg, ...)
 
 const char *rdk_logger_module_fetch(void)
 {
-    return (DEFAULT_MODULE);
+    return NULL;
 }
 
