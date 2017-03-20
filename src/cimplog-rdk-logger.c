@@ -32,7 +32,7 @@ void __cimplog(const char *module, int level, const char *msg, ...)
     nbytes = vsnprintf(buf, MAX_BUF_SIZE, msg, arg_ptr);
     va_end(arg_ptr);
 
-    if( nbytes >  MAX_BUF_SIZE )	
+    if( nbytes >=  MAX_BUF_SIZE )	
     {
     	buf[ MAX_BUF_SIZE - 1 ] = '\0';
     }
