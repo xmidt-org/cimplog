@@ -48,7 +48,7 @@ void log_rdk(rdk_LogLevel level, const char *module,
 
     clock_gettime(CLOCK_REALTIME, &ts);
 
-    printf("[%09ld][%s][%s]: %s", ts.tv_sec, module, _level[0x2 & level], buf);
+    printf("[%09ld][%s][%s]: %s", ts.tv_sec, module, _level[0x3 & level], buf);
 }
 
 void test_err()

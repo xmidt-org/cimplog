@@ -27,22 +27,25 @@ void __cimplog(const char *module, int level, const char *msg, ...)
             exit(0);
         }
     }
-
-    va_start(arg_ptr, msg);
-    nbytes = vsnprintf(buf, MAX_BUF_SIZE, msg, arg_ptr);
-    va_end(arg_ptr);
-
-    if( nbytes >=  MAX_BUF_SIZE )	
+     
+	if (level <= LEVEL_INFO)
     {
-    	buf[ MAX_BUF_SIZE - 1 ] = '\0';
-    }
-    else
-    {
-    	buf[nbytes] = '\0';
-    }
-    
+		va_start(arg_ptr, msg);
+		nbytes = vsnprintf(buf, MAX_BUF_SIZE, msg, arg_ptr);
+		va_end(arg_ptr);
 
-    RDK_LOG(_level[0x2 & level], rdk_logger_module, "%s: %s", module, buf);
+		if( nbytes >=  MAX_BUF_SIZE )	
+		{
+			buf[ MAX_BUF_SIZE - 1 ] = '\0';
+		}
+		else
+		{
+			buf[nbytes] = '\0';
+		}
+		
+
+		RDK_LOG(_level[0x3 & level], rdk_logger_module, "%s: %s", module, buf);
+    }
 }
 
 const char *rdk_logger_module_fetch(void)
