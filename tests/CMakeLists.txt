@@ -27,7 +27,7 @@ target_link_libraries (simple rt)
 
 add_test(NAME SimpleRDKLogger COMMAND simpleRDKLogger)
 include_directories ( ../tests )
-add_executable(simpleRDKLogger simple-rdk-logger.c ../src/cimplog-rdk-logger.c)
+add_executable(simpleRDKLogger simple-rdk-logger.c ../src/cimplog.c ../src/cimplog-rdk-logger.c)
 set_property(TARGET simpleRDKLogger PROPERTY C_STANDARD 99)
 
 target_link_libraries (simpleRDKLogger gcov)
@@ -36,7 +36,7 @@ target_link_libraries (simpleRDKLogger rt)
 
 add_test(NAME SimpleRDKLoggerErr COMMAND simpleRDKLoggerErr)
 include_directories ( ../tests )
-add_executable(simpleRDKLoggerErr simple-rdk-logger-error.c ../src/cimplog-rdk-logger.c)
+add_executable(simpleRDKLoggerErr simple-rdk-logger-error.c ../src/cimplog.c ../src/cimplog-rdk-logger.c)
 set_property(TARGET simpleRDKLoggerErr PROPERTY C_STANDARD 99)
 
 target_link_libraries (simpleRDKLoggerErr gcov)

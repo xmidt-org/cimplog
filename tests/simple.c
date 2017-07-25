@@ -22,6 +22,26 @@
 
 #include "../src/cimplog.h"
 
+static int callback_count = 0;
+
+static void
+my_log_callback(int level, const char* module, const char* format, va_list args)
+{
+  int n;
+  char buff[64];
+
+  (void) level;
+  (void) module;
+
+  CU_ASSERT(level == LEVEL_INFO);
+  CU_ASSERT(strcmp(module, "module") == 0);
+  CU_ASSERT(strcmp(format, "%d") == 0);
+
+  vsnprintf(buff, sizeof(buff), format, args);
+  n = (int) strtol(buff, NULL, 10);
+  callback_count += n;
+}
+
 void test_simple()
 {
     char mod2[] = "Module2", mod3[] = "Module3";
@@ -31,10 +51,22 @@ void test_simple()
     cimplog_debug(mod3, "Sample debug\n");
 }
 
+void test_log_callback()
+{
+  cimplog_sethandler(my_log_callback);
+  cimplog_info("module", "%d", 1);
+  cimplog_info("module", "%d", 2);
+  cimplog_info("module", "%d", 3);
+  cimplog_info("module", "%d", 4);
+  cimplog_info("module", "%d", 5);
+  CU_ASSERT(callback_count == 15);
+}
+
 void add_suites( CU_pSuite *suite )
 {
     *suite = CU_add_suite( "cimplog tests", NULL, NULL );
     CU_add_test( *suite, "Test simple logging", test_simple );
+    CU_add_test( *suite, "Test log callback", test_log_callback);
 }
 
 /*----------------------------------------------------------------------------*/
