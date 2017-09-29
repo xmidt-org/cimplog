@@ -27,6 +27,15 @@ set_target_properties(${PROJ_CIMPL}.shared PROPERTIES
         OUTPUT_NAME ${PROJ_CIMPL}
         SOVERSION "1.0.0")
 
+# ----------------------------------------------------------------------------
+# Note: This is a partial solution and only covers the case required for the
+# Yocto build (ie dynamic lib + rdk logger). Other cases may need fixing too.
+# ----------------------------------------------------------------------------
+if (RDK_LOGGER)
+target_link_libraries(${PROJ_CIMPL}.shared rdkloggers log4c)
+endif (RDK_LOGGER)
+# ----------------------------------------------------------------------------
+
 install (TARGETS ${PROJ_CIMPL} 
          RUNTIME DESTINATION bin
          LIBRARY DESTINATION lib
