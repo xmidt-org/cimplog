@@ -16,9 +16,13 @@ set(PROJ_CIMPL cimplog)
 
 file(GLOB HEADERS cimplog.h cimplog.h)
 if (RDK_LOGGER)
-set(SOURCES cimplog-rdk-logger.c)
+set(SOURCES cimplog.c cimplog-rdk-logger.c)
 else (RDK_LOGGER)
 set(SOURCES cimplog.c)
+endif (RDK_LOGGER)
+
+if (RDK_LOGGER)
+  add_definitions(-DRDK_LOGGER)
 endif (RDK_LOGGER)
 
 add_library(${PROJ_CIMPL} STATIC ${HEADERS} ${SOURCES})

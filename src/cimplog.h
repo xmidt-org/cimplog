@@ -28,12 +28,30 @@
 #define cimplog_debug(module, ...)    __cimplog(module, LEVEL_DEBUG, __VA_ARGS__)
 
 /**
+ * @brief application provided log handler instead of default stdout
+ *
+ * @param module Library or Module indication
+ * @param level  ERROR, INFO, or DEBUG
+ * @param msg    The formatted log message
+ */
+typedef void (*cimplog_handler_t)(int level, const char* module, const char* format, va_list args);
+
+/**
+ * @briege Sets an application log handler instead of using default stdout
+ *
+ * @param handler The application logging callback
+ */
+void cimplog_sethandler(cimplog_handler_t handler);
+
+/**
 * @brief handle log message based on log level
 * 
 * @param module string identifying library/module
 * @param level of log is info,debug,error
 * @param msg message
 */
-void __cimplog(const char *module, int level, const char *msg, ...);
+void __cimplog(const char *module, int level, const char *msg, ...)
+  __attribute__ ((format (printf, 3, 4)));
+
 
 #endif

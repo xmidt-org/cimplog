@@ -23,29 +23,46 @@
 
 #define MAX_BUF_SIZE 1024
 
-void __cimplog(const char *module, int level, const char *msg, ...)
+static cimplog_handler_t _log_handler = NULL;
+
+void cimplog_stdout(int level, const char* moduel, const char* format, va_list args);
+void cimplog_rdk(int level, const char* module, const char* format, va_list args);
+
+void __cimplog(const char *module, int level, const char* format, ...)
 {
-    static const char *_level[] = { "Error", "Info", "Debug", "Unknown" };
-    va_list arg_ptr;
-    char buf[MAX_BUF_SIZE];
-    int nbytes;
-    struct timespec ts;
+  va_list args;
+  va_start(args, format);
 
-    va_start(arg_ptr, msg);
-    nbytes = vsnprintf(buf, MAX_BUF_SIZE, msg, arg_ptr);
-    va_end(arg_ptr);
+  if (_log_handler)
+  {
+    _log_handler(level, module, format, args);
+  }
+  else
+  {
+    #ifdef RDK_LOGGER
+    cimplog_rdk(level, module, format, args);
+    #else
+    cimplog_stdout(level, module, format, args);
+    #endif
+  }
 
-    if( nbytes >=  MAX_BUF_SIZE )	
-    {
-    	buf[ MAX_BUF_SIZE - 1 ] = '\0';
-    }
-    else
-    {
-    	buf[nbytes] = '\0';
-    }
-    
-    clock_gettime(CLOCK_REALTIME, &ts);
-
-    printf("[%09ld][%s][%s]: %s", ts.tv_sec, module, _level[0x3 & level], buf);
+  va_end(args);
 }
 
+void
+cimplog_stdout(int level, const char* module, const char* format, va_list args)
+{
+    static const char *_level[] = { "Error", "Info", "Debug", "Unknown" };
+
+    struct timespec ts;
+    clock_gettime(CLOCK_REALTIME, &ts);
+
+    printf("[%09ld][%s][%s]: ", ts.tv_sec, module, _level[0x3 & level]);
+    vprintf(format, args);
+}
+
+void
+cimplog_sethandler(cimplog_handler_t handler)
+{
+  _log_handler = handler;
+}
