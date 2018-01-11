@@ -23,6 +23,8 @@
 
 #define MAX_BUF_SIZE 1024
 
+int debug_level = LEVEL_INFO;
+
 void __cimplog(const char *module, int level, const char *msg, ...)
 {
     static const char *_level[] = { "Error", "Info", "Debug", "Unknown" };
@@ -31,8 +33,7 @@ void __cimplog(const char *module, int level, const char *msg, ...)
     int nbytes;
     struct timespec ts;
 
-
-    if (level <= LEVEL_INFO)
+    if (level <= debug_level)
     {
         va_start(arg_ptr, msg);
         nbytes = vsnprintf(buf, MAX_BUF_SIZE, msg, arg_ptr);
