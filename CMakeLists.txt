@@ -28,6 +28,8 @@ file(MAKE_DIRECTORY ${TEST_RESULTS_DIR})
 
 include_directories(${INCLUDE_DIR})
 
+add_definitions(-DLEVEL_DEFAULT=${LEVEL_DEFAULT})
+
 # Compile options/flags
 #-------------------------------------------------------------------------------
 add_definitions(-std=c99)
