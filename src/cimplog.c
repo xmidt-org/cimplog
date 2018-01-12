@@ -37,7 +37,6 @@ void __cimplog(const char *module, int level, const char *msg, ...)
     int nbytes;
     struct timespec ts;
 
-    printf("cimplog -- cimplog_debug_level = %d\n", cimplog_debug_level);
     if (level <= cimplog_debug_level)
     {
         va_start(arg_ptr, msg);
