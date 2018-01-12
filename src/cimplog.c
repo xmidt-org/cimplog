@@ -23,6 +23,12 @@
 
 #define MAX_BUF_SIZE 1024
 
+#if defined(LEVEL_DEFAULT)
+int cimplog_debug_level = LEVEL_DEFAULT;
+#else
+int cimplog_debug_level = LEVEL_INFO;
+#endif
+
 void __cimplog(const char *module, int level, const char *msg, ...)
 {
     static const char *_level[] = { "Error", "Info", "Debug", "Unknown" };
@@ -31,21 +37,24 @@ void __cimplog(const char *module, int level, const char *msg, ...)
     int nbytes;
     struct timespec ts;
 
-    va_start(arg_ptr, msg);
-    nbytes = vsnprintf(buf, MAX_BUF_SIZE, msg, arg_ptr);
-    va_end(arg_ptr);
+    if (level <= cimplog_debug_level)
+    {
+        va_start(arg_ptr, msg);
+        nbytes = vsnprintf(buf, MAX_BUF_SIZE, msg, arg_ptr);
+        va_end(arg_ptr);
 
-    if( nbytes >=  MAX_BUF_SIZE )	
-    {
-    	buf[ MAX_BUF_SIZE - 1 ] = '\0';
-    }
-    else
-    {
-    	buf[nbytes] = '\0';
-    }
+        if( nbytes >=  MAX_BUF_SIZE )	
+        {
+            buf[ MAX_BUF_SIZE - 1 ] = '\0';
+        }
+        else
+        {
+            buf[nbytes] = '\0';
+        }
     
-    clock_gettime(CLOCK_REALTIME, &ts);
+        clock_gettime(CLOCK_REALTIME, &ts);
 
-    printf("[%09ld][%s][%s]: %s", ts.tv_sec, module, _level[0x3 & level], buf);
+        printf("[%09ld][%s][%s]: %s", ts.tv_sec, module, _level[0x3 & level], buf);
+    }
 }
 
