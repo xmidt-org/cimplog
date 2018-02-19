@@ -13,6 +13,7 @@
 #   limitations under the License.
 
 set(PROJ_CIMPL cimplog)
+set(CMAKE_MACOSX_RPATH 1)
 
 file(GLOB HEADERS cimplog.h cimplog.h)
 if (RDK_LOGGER)
