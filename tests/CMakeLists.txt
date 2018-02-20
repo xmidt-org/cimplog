@@ -23,9 +23,9 @@ set_property(TARGET simple PROPERTY C_STANDARD 99)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 target_link_libraries (simple gcov)
+target_link_libraries (simple rt)
 endif()
 target_link_libraries (simple cunit)
-target_link_libraries (simple rt)
 
 add_test(NAME SimpleRDKLogger COMMAND simpleRDKLogger)
 include_directories ( ../tests )
@@ -34,9 +34,9 @@ set_property(TARGET simpleRDKLogger PROPERTY C_STANDARD 99)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 target_link_libraries (simpleRDKLogger gcov)
+target_link_libraries (simpleRDKLogger rt)
 endif()
 target_link_libraries (simpleRDKLogger cunit)
-target_link_libraries (simpleRDKLogger rt)
 
 add_test(NAME SimpleRDKLoggerErr COMMAND simpleRDKLoggerErr)
 include_directories ( ../tests )
@@ -45,9 +45,9 @@ set_property(TARGET simpleRDKLoggerErr PROPERTY C_STANDARD 99)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 target_link_libraries (simpleRDKLoggerErr gcov)
+target_link_libraries (simpleRDKLoggerErr rt)
 endif()
 target_link_libraries (simpleRDKLoggerErr cunit)
-target_link_libraries (simpleRDKLoggerErr rt)
 
 add_custom_target(coverage
                   COMMAND lcov -q --capture --directory ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/simple.dir/__/src --output-file coverage.info
