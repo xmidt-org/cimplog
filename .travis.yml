@@ -43,7 +43,6 @@ script:
     - cmake ..
     - make
     - make test
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make coverage; fi
 
 after_success:
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then codecov; fi
