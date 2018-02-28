@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 2.8.7)
 
 project(cimplog)
 
@@ -24,6 +24,9 @@ set(INCLUDE_DIR ${INSTALL_DIR}/include)
 set(LIBRARY_DIR ${INSTALL_DIR}/lib)
 set(LIBRARY_DIR64 ${INSTALL_DIR}/lib64)
 set(TEST_RESULTS_DIR ${CMAKE_CURRENT_BINARY_DIR}/test_results)
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+set(CMAKE_MACOSX_RPATH 1)
+endif()
 file(MAKE_DIRECTORY ${TEST_RESULTS_DIR})
 
 include_directories(${INCLUDE_DIR})
