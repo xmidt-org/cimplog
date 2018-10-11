@@ -27,6 +27,10 @@
 #define cimplog_info(module, ...)     __cimplog(module, LEVEL_INFO, __VA_ARGS__)
 #define cimplog_debug(module, ...)    __cimplog(module, LEVEL_DEBUG, __VA_ARGS__)
 
+#define onborading_error(rdk_module,module, ...)    __cimplog_generic(rdk_module,module, LEVEL_ERROR, __VA_ARGS__)
+#define onborading_info(rdk_module,module, ...)     __cimplog_generic(rdk_module,module, LEVEL_INFO, __VA_ARGS__)
+#define onborading_debug(rdk_module,module, ...)    __cimplog_generic(rdk_module,module, LEVEL_DEBUG, __VA_ARGS__)
+
 /**
 * @brief handle log message based on log level
 * 
@@ -35,5 +39,6 @@
 * @param msg message
 */
 void __cimplog(const char *module, int level, const char *msg, ...);
+void __cimplog_generic(const char *rdk_logger_module, const char *module, int level, const char *msg, ...);
 
 #endif
