@@ -83,9 +83,13 @@ const char *rdk_logger_module_fetch(void)
     return NULL;
 }
 
+/*
+*
+* API to log different component logs in a same log file
+*/
+
 void __cimplog_generic(const char *rdk_logger_module, const char *module, int level, const char *msg, ...)
 {
-    
     static int init_done = 0;
 
     if( !init_done )

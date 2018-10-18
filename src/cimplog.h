@@ -27,9 +27,9 @@
 #define cimplog_info(module, ...)     __cimplog(module, LEVEL_INFO, __VA_ARGS__)
 #define cimplog_debug(module, ...)    __cimplog(module, LEVEL_DEBUG, __VA_ARGS__)
 
-#define onborading_error(rdk_module,module, ...)    __cimplog_generic(rdk_module,module, LEVEL_ERROR, __VA_ARGS__)
-#define onborading_info(rdk_module,module, ...)     __cimplog_generic(rdk_module,module, LEVEL_INFO, __VA_ARGS__)
-#define onborading_debug(rdk_module,module, ...)    __cimplog_generic(rdk_module,module, LEVEL_DEBUG, __VA_ARGS__)
+#define more_error_log(rdk_module,module, ...)    __cimplog_generic(rdk_module,module, LEVEL_ERROR, __VA_ARGS__)
+#define more_info_log(rdk_module,module, ...)     __cimplog_generic(rdk_module,module, LEVEL_INFO, __VA_ARGS__)
+#define more_debug_log(rdk_module,module, ...)    __cimplog_generic(rdk_module,module, LEVEL_DEBUG, __VA_ARGS__)
 
 /**
 * @brief handle log message based on log level
