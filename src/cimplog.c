@@ -58,3 +58,8 @@ void __cimplog(const char *module, int level, const char *msg, ...)
     }
 }
 
+void __cimplog_generic(const char *rdk_logger_module, const char *module, int level, const char *msg, ...)
+{
+    (void)rdk_logger_module;
+    __cimplog(module, level, msg);
+}
