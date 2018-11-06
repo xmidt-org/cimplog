@@ -22,7 +22,7 @@
 
 #include "../src/cimplog.h"
 
-void test_simple()
+void test_cimplog()
 {
     char mod2[] = "Module2", mod3[] = "Module3";
 
@@ -31,10 +31,20 @@ void test_simple()
     cimplog_debug(mod3, "Sample debug\n");
 }
 
+void test_cimplog_generic()
+{
+    char mod2[] = "Module2", mod3[] = "Module3";
+
+    more_error_log("WEBPA","Module1", "Sample generic error\n");
+    more_info_log("PAM", mod2, "Sample generic info\n");
+    more_debug_log("PARODUS", mod3, "Sample debug\n");
+
+}
 void add_suites( CU_pSuite *suite )
 {
     *suite = CU_add_suite( "cimplog tests", NULL, NULL );
-    CU_add_test( *suite, "Test simple logging", test_simple );
+    CU_add_test( *suite, "Test cimplog logging\n", test_cimplog );
+    CU_add_test( *suite, "Test cimplog generic logging\n", test_cimplog_generic );
 }
 
 /*----------------------------------------------------------------------------*/

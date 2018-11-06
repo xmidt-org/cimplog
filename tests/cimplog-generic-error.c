@@ -32,11 +32,6 @@ int rdk_logger_init(char* str)
     return 0;
 }
 
-const char *rdk_logger_module_fetch(void)
-{
-    return ("simpleRDKLogger");
-}
-
 void log_rdk(rdk_LogLevel level, const char *module,
         const char *format, ...)
 {
@@ -56,24 +51,13 @@ void log_rdk(rdk_LogLevel level, const char *module,
     printf("[%09ld][%s][%s]: %s", ts.tv_sec, module, _level[0x3 & level], buf);
 }
 
-void test_cimplog()
+void test_cimplog_generic_err()
 {
     char mod2[] = "Module2", mod3[] = "Module3";
 
-    cimplog_error("Module1", "Sample error\n");
-    cimplog_info(mod2, "Sample info\n");
-    cimplog_debug(mod3, "Sample debug\n");
-
-    __cimplog(mod2, 3, "Sample unknown level message");
-}
-
-void test_cimplog_generic()
-{
-    char mod2[] = "Module2", mod3[] = "Module3";
-
-    more_error_log("WEBPA","Module1", "Sample generic error\n");
-    more_info_log("PAM", mod2, "Sample generic info\n");
-    more_debug_log("PARODUS", mod3, "Sample debug\n");
+    more_error_log(NULL,"Module1", "Sample generic error\n");
+    more_info_log("", mod2, "Sample generic info\n");
+    more_debug_log(NULL, mod3, "Sample debug\n");
 
     __cimplog_generic("WEBPA", mod2, 1, "Sample unknown level message");
 }
@@ -81,8 +65,7 @@ void test_cimplog_generic()
 void add_suites( CU_pSuite *suite )
 {
     *suite = CU_add_suite( "cimplog tests", NULL, NULL );
-    CU_add_test( *suite, "Test cimplog logging\n", test_cimplog );
-    CU_add_test( *suite, "Test cimplog generic logging\n", test_cimplog_generic );
+    CU_add_test( *suite, "Test cimplog generic logging error\n", test_cimplog_generic_err );
 }
 
 /*----------------------------------------------------------------------------*/

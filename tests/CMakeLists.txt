@@ -12,12 +12,14 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-add_test(NAME Simple COMMAND simple)
-
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wno-error=missing-field-initializers -W -g -fprofile-arcs -ftest-coverage -O0")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -W  -g -fprofile-arcs -ftest-coverage -O0")
 set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage -O0")
 
+#-------------------------------------------------------------------------------
+#   simple
+#-------------------------------------------------------------------------------
+add_test(NAME Simple COMMAND simple)
 add_executable(simple simple.c ../src/cimplog.c)
 set_property(TARGET simple PROPERTY C_STANDARD 99)
 
@@ -27,6 +29,9 @@ target_link_libraries (simple rt)
 endif()
 target_link_libraries (simple cunit)
 
+#-------------------------------------------------------------------------------
+#   simpleRDKLogger
+#-------------------------------------------------------------------------------
 add_test(NAME SimpleRDKLogger COMMAND simpleRDKLogger)
 include_directories ( ../tests )
 add_executable(simpleRDKLogger simple-rdk-logger.c ../src/cimplog-rdk-logger.c)
@@ -38,6 +43,9 @@ target_link_libraries (simpleRDKLogger rt)
 endif()
 target_link_libraries (simpleRDKLogger cunit)
 
+#-------------------------------------------------------------------------------
+#   simpleRDKLoggerErr
+#-------------------------------------------------------------------------------
 add_test(NAME SimpleRDKLoggerErr COMMAND simpleRDKLoggerErr)
 include_directories ( ../tests )
 add_executable(simpleRDKLoggerErr simple-rdk-logger-error.c ../src/cimplog-rdk-logger.c)
@@ -49,9 +57,25 @@ target_link_libraries (simpleRDKLoggerErr rt)
 endif()
 target_link_libraries (simpleRDKLoggerErr cunit)
 
+#-------------------------------------------------------------------------------
+#   cimplogGenericErr
+#-------------------------------------------------------------------------------
+add_test(NAME CimplogGenericErr COMMAND cimplogGenericErr)
+include_directories ( ../tests )
+add_executable(cimplogGenericErr cimplog-generic-error.c ../src/cimplog-rdk-logger.c)
+set_property(TARGET cimplogGenericErr PROPERTY C_STANDARD 99)
+
+if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+target_link_libraries (cimplogGenericErr gcov)
+target_link_libraries (cimplogGenericErr rt)
+endif()
+target_link_libraries (cimplogGenericErr cunit)
+
+#--------------------------------------------------------------------------------
 add_custom_target(coverage
                   COMMAND lcov -q --capture --directory ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/simple.dir/__/src --output-file coverage.info
                   COMMAND lcov -q --capture --directory ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/simpleRDKLoggerErr.dir/__/src --output-file coverage.info
                   COMMAND lcov -q --capture --directory ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/simpleRDKLogger.dir/__/src --output-file coverage.info
+                  COMMAND lcov -q --capture --directory ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/cimplogGenericErr.dir/__/src --output-file coverage.info
                   COMMAND genhtml coverage.info
                   WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
