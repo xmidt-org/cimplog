@@ -12,6 +12,8 @@ void log_rdk(rdk_LogLevel level, const char *module,
 
 #define RDK_LOG log_rdk
 
+#define RDK_LOGGER_INIT() rdk_logger_init("/etc/debug.ini");
+
 int rdk_logger_init(char* str);
 
 #endif /* _RDK_DEBUG_H_ */
