@@ -67,22 +67,10 @@ void test_cimplog()
     __cimplog(mod2, 3, "Sample unknown level message");
 }
 
-void test_cimplog_generic()
-{
-    char mod2[] = "Module2", mod3[] = "Module3";
-
-    more_error_log("WEBPA","Module1", "Sample generic error\n");
-    more_info_log("PAM", mod2, "Sample generic info\n");
-    more_debug_log("PARODUS", mod3, "Sample debug\n");
-
-    __cimplog_generic("WEBPA", mod2, 1, "Sample unknown level message");
-}
-
 void add_suites( CU_pSuite *suite )
 {
     *suite = CU_add_suite( "cimplog tests", NULL, NULL );
     CU_add_test( *suite, "Test cimplog logging\n", test_cimplog );
-    CU_add_test( *suite, "Test cimplog generic logging\n", test_cimplog_generic );
 }
 
 /*----------------------------------------------------------------------------*/

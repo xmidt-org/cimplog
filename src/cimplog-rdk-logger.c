@@ -22,13 +22,29 @@
 
 #include "cimplog.h"
 
-#define DEBUG_INI_NAME				"/etc/debug.ini"
+#define DEBUG_INI_NAME		"/etc/debug.ini"
 #define MAX_BUF_SIZE 1024
 
 const char *__attribute__((weak)) rdk_logger_module_fetch(void);
 
-static void __cimplog_common(const char *rdk_logger_module, const char *module, int level, const char *msg, ...)
+void __cimplog(const char *module, int level, const char *msg, ...)
 {
+    static const char *rdk_logger_module = NULL;
+    static int init_done = 0;
+
+    if( !init_done )
+    {
+        RDK_LOGGER_INIT();
+        rdk_logger_module = rdk_logger_module_fetch();
+        if( NULL == rdk_logger_module )
+        {
+            fprintf(stderr, "\nERROR: RDK Logger not integrated for this module !!!\n");
+            fprintf(stderr, " Provide cimplog method \"const char *rdk_logger_module_fetch(void)\" to get log prints !!\n");
+	          exit(0); // Not using RDKLogger is an Error. Terminate!
+        }
+        init_done = 1;
+    }
+
     if( NULL == rdk_logger_module )
     {
         //if RDK logger module is not defined, simple return - dont print.
@@ -63,58 +79,9 @@ static void __cimplog_common(const char *rdk_logger_module, const char *module, 
     return;
 }
 
-void __cimplog(const char *module, int level, const char *msg, ...)
-{
-    static const char *rdk_logger_module = NULL;
-    static int init_done = 0;
-
-    if( !init_done )
-    {
-    	RDK_LOGGER_INIT();
-        rdk_logger_module = rdk_logger_module_fetch();
-        if( NULL == rdk_logger_module )
-        {
-            fprintf(stderr, "\nERROR: RDK Logger not integrated for this module !!!\n");
-            fprintf(stderr, " Provide cimplog method \"const char *rdk_logger_module_fetch(void)\" to get log prints !!\n");
-            exit(0); // Not using RDKLogger is an Error. Terminate!
-        }
-        init_done = 1;
-    }
-
-    __cimplog_common(rdk_logger_module, module, level, msg);
-
-    return;
-}
-
 // The below 'weak' linkage should be replaced with strong definition in the module integrating to cimplog
 const char *rdk_logger_module_fetch(void)
 {
     return NULL;
-}
-
-/*
-*
-* API to log into an additional module other than the primary module of a component
-*/
-
-void __cimplog_generic(const char *rdk_logger_module, const char *module, int level, const char *msg, ...)
-{
-    static int init_done = 0;
-
-    if( !init_done )
-    {
-        RDK_LOGGER_INIT();
-        if( NULL == rdk_logger_module )
-        {
-            fprintf(stderr, "\nERROR: RDK Logger not integrated for this module !!!\n");
-            fprintf(stderr, " Provide rdk_logger_module to get log prints !!\n");
-            exit(0); // Not using RDKLogger is an Error. Terminate!
-        }
-        init_done = 1;
-    }
-
-    __cimplog_common(rdk_logger_module, module, level, msg);
-
-    return;
 }
 
