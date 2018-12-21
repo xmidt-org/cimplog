@@ -17,10 +17,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <rdk_debug.h>
 
 #include "cimplog.h"
 
+#define DEBUG_INI_NAME				"/etc/debug.ini"
 #define MAX_BUF_SIZE 1024
 
 const char *__attribute__((weak)) rdk_logger_module_fetch(void);
@@ -32,7 +34,7 @@ void __cimplog(const char *module, int level, const char *msg, ...)
 
     if( !init_done )
     {
-        rdk_logger_init("/etc/debug.ini");
+        RDK_LOGGER_INIT();
         rdk_logger_module = rdk_logger_module_fetch();
         if( NULL == rdk_logger_module )
         {
