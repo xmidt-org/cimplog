@@ -27,7 +27,7 @@
 
 const char *__attribute__((weak)) rdk_logger_module_fetch(void);
 
-void __cimplog(const char *module, int level, const char *msg, ...)
+static void __cimplog(const char *rdk_logger_module, const char *module, int level, const char *msg, ...)
 {
     static const char *rdk_logger_module = NULL;
     static int init_done = 0;
@@ -40,7 +40,7 @@ void __cimplog(const char *module, int level, const char *msg, ...)
         {
             fprintf(stderr, "\nERROR: RDK Logger not integrated for this module !!!\n");
             fprintf(stderr, " Provide cimplog method \"const char *rdk_logger_module_fetch(void)\" to get log prints !!\n");
-	    exit(0); // Not using RDKLogger is an Error. Terminate!
+	          exit(0); // Not using RDKLogger is an Error. Terminate!
         }
         init_done = 1;
     }
@@ -48,7 +48,7 @@ void __cimplog(const char *module, int level, const char *msg, ...)
     if( NULL == rdk_logger_module )
     {
         //if RDK logger module is not defined, simple return - dont print.
-	// used when calling module is not interested in log prints
+        // used when calling module is not interested in log prints
         return;
     }
 
@@ -60,20 +60,20 @@ void __cimplog(const char *module, int level, const char *msg, ...)
 
     if (level <= LEVEL_INFO)
     {
-		va_start(arg_ptr, msg);
-		nbytes = vsnprintf(buf, MAX_BUF_SIZE, msg, arg_ptr);
-		va_end(arg_ptr);
+        va_start(arg_ptr, msg);
+        nbytes = vsnprintf(buf, MAX_BUF_SIZE, msg, arg_ptr);
+        va_end(arg_ptr);
 
-		if( nbytes >=  MAX_BUF_SIZE )	
-		{
-			buf[ MAX_BUF_SIZE - 1 ] = '\0';
-		}
-		else
-		{
-			buf[nbytes] = '\0';
-		}
-		
-		RDK_LOG(_level[0x3 & level], rdk_logger_module, "%s: %s", module, buf);
+        if( nbytes >=  MAX_BUF_SIZE )	
+        {
+            buf[ MAX_BUF_SIZE - 1 ] = '\0';
+        }
+        else
+        {
+            buf[nbytes] = '\0';
+        }
+
+        RDK_LOG(_level[0x3 & level], rdk_logger_module, "%s: %s", module, buf);
     }
 
     return;
