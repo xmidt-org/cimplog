@@ -27,10 +27,6 @@
 #define cimplog_info(module, ...)     __cimplog(module, LEVEL_INFO, __VA_ARGS__)
 #define cimplog_debug(module, ...)    __cimplog(module, LEVEL_DEBUG, __VA_ARGS__)
 
-#define more_error_log(rdk_module,module, ...)    __cimplog_generic(rdk_module,module, LEVEL_ERROR, __VA_ARGS__)
-#define more_info_log(rdk_module,module, ...)     __cimplog_generic(rdk_module,module, LEVEL_INFO, __VA_ARGS__)
-#define more_debug_log(rdk_module,module, ...)    __cimplog_generic(rdk_module,module, LEVEL_DEBUG, __VA_ARGS__)
-
 /**
 * @brief handle log message based on log level
 * 
@@ -39,15 +35,5 @@
 * @param msg message
 */
 void __cimplog(const char *module, int level, const char *msg, ...);
-
-/**
-* @brief log message into an additional module other than the primary module of a component
-* 
-* @param rdk_logger_module string identifying component
-* @param module string identifying library/module
-* @param level of log is info,debug,error
-* @param msg message
-*/
-void __cimplog_generic(const char *rdk_logger_module, const char *module, int level, const char *msg, ...);
 
 #endif
