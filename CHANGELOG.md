@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 - Fixes for building in CentOS
 - Fixes for building in MacOS
+- Added support for overriding debug.ini file location in RDK code
 
 ## [1.0.0] - 2017-10-11
 ### Added
