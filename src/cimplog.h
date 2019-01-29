@@ -27,6 +27,8 @@
 #define cimplog_info(module, ...)     __cimplog(module, LEVEL_INFO, __VA_ARGS__)
 #define cimplog_debug(module, ...)    __cimplog(module, LEVEL_DEBUG, __VA_ARGS__)
 
+#define onboarding_log(module, ...)    __cimplog_generic(module, __VA_ARGS__)
+
 /**
 * @brief handle log message based on log level
 * 
@@ -36,4 +38,11 @@
 */
 void __cimplog(const char *module, int level, const char *msg, ...);
 
+/**
+* @brief log message into an additional module other than the primary module of a component
+*
+* @param module string identifying library/module
+* @param msg message
+*/
+void __cimplog_generic(const char *module, const char *msg, ...);
 #endif

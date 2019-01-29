@@ -57,4 +57,3 @@ void __cimplog(const char *module, int level, const char *msg, ...)
         printf("[%09ld][%s][%s]: %s", ts.tv_sec, module, _level[0x3 & level], buf);
     }
 }
-

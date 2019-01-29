@@ -31,10 +31,19 @@ void test_cimplog()
     cimplog_debug(mod3, "Sample debug\n");
 }
 
+void test_onBoarding()
+{
+    char mod2[] = "Module2";
+    char *msg = "arguments";
+    onboarding_log("Module1", "Sample OnBoarding Log\n");
+    onboarding_log(mod2, "Sample OnBoarding Log with %s\n",msg);
+    onboarding_log(NULL, "Sample debug\n");
+}
 void add_suites( CU_pSuite *suite )
 {
     *suite = CU_add_suite( "cimplog tests", NULL, NULL );
     CU_add_test( *suite, "Test cimplog logging\n", test_cimplog );
+    CU_add_test( *suite, "Test onboard logging\n", test_onBoarding );
 }
 
 /*----------------------------------------------------------------------------*/
