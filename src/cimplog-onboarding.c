@@ -18,8 +18,8 @@
 #include <sys/sysinfo.h>
 #include <time.h>
 #include <string.h>
+#include <unistd.h>
 #include "cimplog.h"
-
 #define MAX_BUF_SIZE 1024
 
 #ifdef XB3_ARM
@@ -29,6 +29,8 @@
 #else
 #define ONBOARDING_FILE         "/rdklogs/logs/OnBoardingLog.txt.0"
 #endif
+
+#define DEVICE_ONBOARDED	"/nvram/.device_onboarded"
 
 void __cimplog_generic(const char *module, const char *msg, ...)
 {
@@ -40,6 +42,11 @@ void __cimplog_generic(const char *module, const char *msg, ...)
     char l_cLocalTime[32] = {0};
     time_t l_sNowTime;
     FILE *l_fOnBoardingLogFile = NULL;
+
+    if (access(DEVICE_ONBOARDED, F_OK) != -1)
+    {
+        return;
+    }
 
     sysinfo(&l_sSysInfo);
     time(&l_sNowTime);
