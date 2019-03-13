@@ -58,3 +58,8 @@ void __cimplog(const char *module, int level, const char *msg, ...)
     }
 }
 
+void __cimplog_generic(const char *module, const char *msg, ...)
+{
+    (void) module;
+    (void) msg;
+}

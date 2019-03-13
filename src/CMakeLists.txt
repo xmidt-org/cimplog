@@ -16,7 +16,7 @@ set(PROJ_CIMPL cimplog)
 
 file(GLOB HEADERS cimplog.h cimplog.h)
 if (RDK_LOGGER)
-set(SOURCES cimplog-rdk-logger.c)
+set(SOURCES cimplog-rdk-logger.c cimplog-onboarding.c)
 else (RDK_LOGGER)
 set(SOURCES cimplog.c)
 endif (RDK_LOGGER)
@@ -43,3 +43,12 @@ install (TARGETS ${PROJ_CIMPL}
 install (TARGETS ${PROJ_CIMPL} DESTINATION lib${LIB_SUFFIX})
 install (TARGETS ${PROJ_CIMPL}.shared DESTINATION lib${LIB_SUFFIX})
 install (FILES cimplog.h DESTINATION include/${PROJ_CIMPL})
+
+if (RDK_LOGGER)
+#-------------------------------------------------------------------------------
+# onboarding_log cli
+#-------------------------------------------------------------------------------
+set(BIN_SOURCES cimplog-onboarding.c main.c)
+add_executable(onboarding_log ${BIN_SOURCES} ${HEADERS})
+install (TARGETS onboarding_log DESTINATION bin)
+endif (RDK_LOGGER)
