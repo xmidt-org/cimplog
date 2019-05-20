@@ -36,4 +36,11 @@
 */
 void __cimplog(const char *module, int level, const char *msg, ...);
 
+/**
+* @brief log message into an additional module other than the primary module of a component
+*
+* @param module string identifying library/module
+* @param msg message
+*/
+void __cimplog_generic(const char *module, const char *msg, ...);
 #endif
