@@ -16,7 +16,7 @@ set(PROJ_CIMPL cimplog)
 
 file(GLOB HEADERS cimplog.h cimplog.h)
 if (RDK_LOGGER)
-set(SOURCES cimplog-rdk-logger.c)
+set(SOURCES cimplog-rdk-logger.c cimplog-generic.c)
 else (RDK_LOGGER)
 set(SOURCES cimplog.c)
 endif (RDK_LOGGER)

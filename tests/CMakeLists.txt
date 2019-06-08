@@ -30,6 +30,19 @@ endif()
 target_link_libraries (simple cunit)
 
 #-------------------------------------------------------------------------------
+#   simple-generic
+#-------------------------------------------------------------------------------
+add_test(NAME simple-generic COMMAND simple-generic)
+add_executable(simple-generic simple-generic.c ../src/cimplog-generic.c)
+set_property(TARGET simple-generic PROPERTY C_STANDARD 99)
+
+if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+target_link_libraries (simple-generic gcov)
+target_link_libraries (simple-generic rt)
+endif()
+target_link_libraries (simple-generic cunit)
+
+#-------------------------------------------------------------------------------
 #   simpleRDKLogger
 #-------------------------------------------------------------------------------
 add_test(NAME SimpleRDKLogger COMMAND simpleRDKLogger)
@@ -60,6 +73,7 @@ target_link_libraries (simpleRDKLoggerErr cunit)
 #--------------------------------------------------------------------------------
 add_custom_target(coverage
                   COMMAND lcov -q --capture --directory ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/simple.dir/__/src --output-file coverage.info
+		  COMMAND lcov -q --capture --directory ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/simple-generic.dir/__/src --output-file coverage.info
                   COMMAND lcov -q --capture --directory ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/simpleRDKLoggerErr.dir/__/src --output-file coverage.info
                   COMMAND lcov -q --capture --directory ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/simpleRDKLogger.dir/__/src --output-file coverage.info
                   COMMAND genhtml coverage.info
