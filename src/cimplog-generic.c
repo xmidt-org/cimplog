@@ -15,7 +15,6 @@
  *
  */
 #include <stdio.h>
-#include <sys/sysinfo.h>
 #include <time.h>
 #include <string.h>
 #include <unistd.h>
@@ -31,13 +30,11 @@ void __cimplog_generic(const char *module, const char *msg, ...)
     va_list arg_ptr;
     char buf[MAX_BUF_SIZE];
     int nbytes;
-    struct sysinfo l_sSysInfo;
     struct tm * l_sTimeInfo;
     char l_cLocalTime[32] = {0};
     time_t l_sNowTime;
     FILE *l_fGenericLogFile = NULL;
 
-    sysinfo(&l_sSysInfo);
     time(&l_sNowTime);
     l_sTimeInfo = localtime(&l_sNowTime);
 
