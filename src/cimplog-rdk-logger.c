@@ -34,7 +34,8 @@ void __cimplog(const char *module, int level, const char *msg, ...)
 
     if( !init_done )
     {
-        RDK_LOGGER_INIT();
+        //RDK_LOGGER_INIT();
+	rdk_logger_init(DEBUG_INI_NAME);
         rdk_logger_module = rdk_logger_module_fetch();
         if( NULL == rdk_logger_module )
         {
