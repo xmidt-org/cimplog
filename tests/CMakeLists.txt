@@ -20,7 +20,7 @@ set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-cov
 #   simple
 #-------------------------------------------------------------------------------
 add_test(NAME Simple COMMAND simple)
-add_executable(simple simple.c ../src/cimplog.c)
+add_executable(simple simple.c ../src/cimplog.c ../src/cimplog-onboarding.c)
 set_property(TARGET simple PROPERTY C_STANDARD 99)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
