@@ -26,7 +26,17 @@
 #define cimplog_error(module, ...)    __cimplog(module, LEVEL_ERROR, __VA_ARGS__)
 #define cimplog_info(module, ...)     __cimplog(module, LEVEL_INFO, __VA_ARGS__)
 #define cimplog_debug(module, ...)    __cimplog(module, LEVEL_DEBUG, __VA_ARGS__)
+#ifdef RDK_LOGGER
+#define onboarding_log(module, ...)    __cimplog_onboard(module, __VA_ARGS__)
 
+/**
+* @brief log message into an additional module other than the primary module of a component
+*
+* @param module string identifying library/module
+* @param msg message
+*/
+void __cimplog_onboard(const char *module, const char *msg, ...);
+#endif
 /**
 * @brief handle log message based on log level
 * 
@@ -43,4 +53,5 @@ void __cimplog(const char *module, int level, const char *msg, ...);
 * @param msg message
 */
 void __cimplog_generic(const char *module, const char *msg, ...);
+
 #endif

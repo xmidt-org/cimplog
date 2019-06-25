@@ -30,11 +30,23 @@ void test_cimplog()
     cimplog_info(mod2, "Sample info\n");
     cimplog_debug(mod3, "Sample debug\n");
 }
-
+#ifdef RDK_LOGGER
+void test_onBoarding()
+{
+    char mod2[] = "Module2";
+    char *msg = "arguments";
+    onboarding_log("Module1", "Sample OnBoarding Log\n");
+    onboarding_log(mod2, "Sample OnBoarding Log with %s\n",msg);
+    onboarding_log(NULL, "Sample debug\n");
+}
+#endif
 void add_suites( CU_pSuite *suite )
 {
     *suite = CU_add_suite( "cimplog tests", NULL, NULL );
     CU_add_test( *suite, "Test cimplog logging\n", test_cimplog );
+#ifdef RDK_LOGGER
+	CU_add_test( *suite, "Test onboard logging\n", test_onBoarding );
+#endif
 }
 
 /*----------------------------------------------------------------------------*/
