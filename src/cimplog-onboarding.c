@@ -14,6 +14,7 @@
  * limitations under the License.
  *
  */
+#ifdef FEATURE_SUPPORT_ONBOARD_LOGGING
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
@@ -88,3 +89,4 @@ void __cimplog_onboard(const char *module, const char *msg, ...)
         }
     }
 }
+#endif

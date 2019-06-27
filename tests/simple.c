@@ -30,7 +30,7 @@ void test_cimplog()
     cimplog_info(mod2, "Sample info\n");
     cimplog_debug(mod3, "Sample debug\n");
 }
-#ifdef RDK_LOGGER
+#ifdef FEATURE_SUPPORT_ONBOARD_LOGGING
 void test_onBoarding()
 {
     char mod2[] = "Module2";
@@ -44,7 +44,7 @@ void add_suites( CU_pSuite *suite )
 {
     *suite = CU_add_suite( "cimplog tests", NULL, NULL );
     CU_add_test( *suite, "Test cimplog logging\n", test_cimplog );
-#ifdef RDK_LOGGER
+#ifdef FEATURE_SUPPORT_ONBOARD_LOGGING
 	CU_add_test( *suite, "Test onboard logging\n", test_onBoarding );
 #endif
 }

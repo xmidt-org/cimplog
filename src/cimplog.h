@@ -26,7 +26,7 @@
 #define cimplog_error(module, ...)    __cimplog(module, LEVEL_ERROR, __VA_ARGS__)
 #define cimplog_info(module, ...)     __cimplog(module, LEVEL_INFO, __VA_ARGS__)
 #define cimplog_debug(module, ...)    __cimplog(module, LEVEL_DEBUG, __VA_ARGS__)
-#ifdef RDK_LOGGER
+#ifdef FEATURE_SUPPORT_ONBOARD_LOGGING
 #define onboarding_log(module, ...)    __cimplog_onboard(module, __VA_ARGS__)
 
 /**
