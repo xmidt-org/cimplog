@@ -35,9 +35,9 @@ if (LEVEL_DEFAULT)
 add_definitions(-DLEVEL_DEFAULT=${LEVEL_DEFAULT})
 endif (LEVEL_DEFAULT)
 
-if (RDK_LOGGER)
-add_definitions(-DRDK_LOGGER)
-endif()
+if (FEATURE_SUPPORT_ONBOARD_LOGGING)
+add_definitions(-DFEATURE_SUPPORT_ONBOARD_LOGGING)
+endif (FEATURE_SUPPORT_ONBOARD_LOGGING)
 
 # Compile options/flags
 #-------------------------------------------------------------------------------

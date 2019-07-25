@@ -16,10 +16,11 @@ set(PROJ_CIMPL cimplog)
 
 file(GLOB HEADERS cimplog.h cimplog.h)
 if (RDK_LOGGER)
-set(SOURCES cimplog-rdk-logger.c cimplog-generic.c cimplog-onboarding.c)
+set(SOURCES cimplog-rdk-logger.c cimplog-generic.c)
 else (RDK_LOGGER)
 set(SOURCES cimplog.c)
 endif (RDK_LOGGER)
+set(SOURCES ${SOURCES} cimplog-onboarding.c)
 
 add_library(${PROJ_CIMPL} STATIC ${HEADERS} ${SOURCES})
 add_library(${PROJ_CIMPL}.shared SHARED ${HEADERS} ${SOURCES})
@@ -44,11 +45,11 @@ install (TARGETS ${PROJ_CIMPL} DESTINATION lib${LIB_SUFFIX})
 install (TARGETS ${PROJ_CIMPL}.shared DESTINATION lib${LIB_SUFFIX})
 install (FILES cimplog.h DESTINATION include/${PROJ_CIMPL})
 
-if (RDK_LOGGER)
+if (FEATURE_SUPPORT_ONBOARD_LOGGING)
 #-------------------------------------------------------------------------------
 # onboarding_log cli
 #-------------------------------------------------------------------------------
 set(BIN_SOURCES cimplog-onboarding.c main.c)
 add_executable(onboarding_log ${BIN_SOURCES} ${HEADERS})
 install (TARGETS onboarding_log DESTINATION bin)
-endif (RDK_LOGGER)
+endif (FEATURE_SUPPORT_ONBOARD_LOGGING)
