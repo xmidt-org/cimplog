@@ -31,6 +31,7 @@
 #endif
 
 #define DEVICE_ONBOARDED	"/nvram/.device_onboarded"
+#define DISABLE_ONBOARDING	"/nvram/DISABLE_ONBOARD_LOGGING"
 
 void __cimplog_onboard(const char *module, const char *msg, ...)
 {
@@ -42,7 +43,7 @@ void __cimplog_onboard(const char *module, const char *msg, ...)
     time_t l_sNowTime;
     FILE *l_fOnBoardingLogFile = NULL;
 
-    if (access(DEVICE_ONBOARDED, F_OK) != -1)
+    if (access(DEVICE_ONBOARDED, F_OK) != -1 || access(DISABLE_ONBOARDING, F_OK) != -1)
     {
         return;
     }
