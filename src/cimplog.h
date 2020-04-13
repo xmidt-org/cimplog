@@ -54,4 +54,17 @@ void __cimplog(const char *module, int level, const char *msg, ...);
 */
 void __cimplog_generic(const char *module, const char *msg, ...);
 
+/**
+* @brief log message into an additional rdk logger module 
+* other than the primary module of a component. 
+* To be used only when integrated with rdk_logger
+*
+* @param rdk_logger_module string identifying RDK logger module
+* @param module string identifying library/module
+* @param level logging level ERROR, INFO, DEBUG
+* @param msg message
+*/
+void __cimplog_rdk_generic(const char *rdk_logger_module, const char *module, int level, const char *msg, ...);
+
+
 #endif
