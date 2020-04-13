@@ -24,9 +24,20 @@ set(INCLUDE_DIR ${INSTALL_DIR}/include)
 set(LIBRARY_DIR ${INSTALL_DIR}/lib)
 set(LIBRARY_DIR64 ${INSTALL_DIR}/lib64)
 set(TEST_RESULTS_DIR ${CMAKE_CURRENT_BINARY_DIR}/test_results)
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+set(CMAKE_MACOSX_RPATH 1)
+endif()
 file(MAKE_DIRECTORY ${TEST_RESULTS_DIR})
 
 include_directories(${INCLUDE_DIR})
+
+if (LEVEL_DEFAULT)
+add_definitions(-DLEVEL_DEFAULT=${LEVEL_DEFAULT})
+endif (LEVEL_DEFAULT)
+
+if (FEATURE_SUPPORT_ONBOARD_LOGGING)
+add_definitions(-DFEATURE_SUPPORT_ONBOARD_LOGGING)
+endif (FEATURE_SUPPORT_ONBOARD_LOGGING)
 
 # Compile options/flags
 #-------------------------------------------------------------------------------

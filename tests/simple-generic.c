@@ -19,53 +19,23 @@
 #include <string.h>
 #include <CUnit/Basic.h>
 #include <stdbool.h>
-#include <time.h>
-#include <rdk_debug.h>
 
 #include "../src/cimplog.h"
 
-#define MAX_BUF_SIZE 1024
-
-int rdk_logger_init(char* str)
+const char *fetch_generic_file(void)
 {
-    printf("%s\n", str);
-    return 0;
+    return "Generic.log";
 }
 
-void log_rdk(rdk_LogLevel level, const char *module,
-        const char *format, ...)
+void test_cimplog_generic()
 {
-    static const char *_level[] = { "Error", "Info", "Debug" }; 
-    va_list arg_ptr;
-    char buf[MAX_BUF_SIZE];
-    int nbytes;
-    struct timespec ts;
-
-    va_start(arg_ptr, format);
-    nbytes = vsnprintf(buf, MAX_BUF_SIZE, format, arg_ptr);
-    va_end(arg_ptr);
-    buf[nbytes]='\0';
-
-    clock_gettime(CLOCK_REALTIME, &ts);
-
-    printf("[%09ld][%s][%s]: %s", ts.tv_sec, module, _level[0x3 & level], buf);
-}
-
-void test_cimplog_err()
-{
-    char mod2[] = "Module2", mod3[] = "Module3";
-
-    cimplog_error("Module1", "Sample error\n");
-    cimplog_info(mod2, "Sample info\n");
-    cimplog_debug(mod3, "Sample debug\n");
-
-    __cimplog(mod2, 3, "Sample unknown level message");
+    __cimplog_generic("Module1", "Sample generic log\n");
 }
 
 void add_suites( CU_pSuite *suite )
 {
     *suite = CU_add_suite( "cimplog tests", NULL, NULL );
-    CU_add_test( *suite, "Test cimplog logging error\n", test_cimplog_err );
+    CU_add_test( *suite, "Test cimplog generic logging\n", test_cimplog_generic );
 }
 
 /*----------------------------------------------------------------------------*/

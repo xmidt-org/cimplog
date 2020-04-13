@@ -28,7 +28,7 @@
 
 int rdk_logger_init(char* str)
 {
-    printf("%s", str);
+    printf("%s\n", str);
     return 0;
 }
 
@@ -53,10 +53,10 @@ void log_rdk(rdk_LogLevel level, const char *module,
 
     clock_gettime(CLOCK_REALTIME, &ts);
 
-    printf("[%09ld][%s][%s]: %s", ts.tv_sec, module, _level[0x2 & level], buf);
+    printf("[%09ld][%s][%s]: %s", ts.tv_sec, module, _level[0x3 & level], buf);
 }
 
-void test_simple()
+void test_cimplog()
 {
     char mod2[] = "Module2", mod3[] = "Module3";
 
@@ -70,7 +70,7 @@ void test_simple()
 void add_suites( CU_pSuite *suite )
 {
     *suite = CU_add_suite( "cimplog tests", NULL, NULL );
-    CU_add_test( *suite, "Test simple logging", test_simple );
+    CU_add_test( *suite, "Test cimplog logging\n", test_cimplog );
 }
 
 /*----------------------------------------------------------------------------*/

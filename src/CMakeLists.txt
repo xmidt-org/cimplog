@@ -16,16 +16,26 @@ set(PROJ_CIMPL cimplog)
 
 file(GLOB HEADERS cimplog.h cimplog.h)
 if (RDK_LOGGER)
-set(SOURCES cimplog-rdk-logger.c)
+set(SOURCES cimplog-rdk-logger.c cimplog-generic.c)
 else (RDK_LOGGER)
 set(SOURCES cimplog.c)
 endif (RDK_LOGGER)
+set(SOURCES ${SOURCES} cimplog-onboarding.c)
 
 add_library(${PROJ_CIMPL} STATIC ${HEADERS} ${SOURCES})
 add_library(${PROJ_CIMPL}.shared SHARED ${HEADERS} ${SOURCES})
 set_target_properties(${PROJ_CIMPL}.shared PROPERTIES 
         OUTPUT_NAME ${PROJ_CIMPL}
         SOVERSION "1.0.0")
+
+# ----------------------------------------------------------------------------
+# Note: This is a partial solution and only covers the case required for the
+# Yocto build (ie dynamic lib + rdk logger). Other cases may need fixing too.
+# ----------------------------------------------------------------------------
+if (RDK_LOGGER)
+target_link_libraries(${PROJ_CIMPL}.shared rdkloggers log4c)
+endif (RDK_LOGGER)
+# ----------------------------------------------------------------------------
 
 install (TARGETS ${PROJ_CIMPL} 
          RUNTIME DESTINATION bin
@@ -34,3 +44,12 @@ install (TARGETS ${PROJ_CIMPL}
 install (TARGETS ${PROJ_CIMPL} DESTINATION lib${LIB_SUFFIX})
 install (TARGETS ${PROJ_CIMPL}.shared DESTINATION lib${LIB_SUFFIX})
 install (FILES cimplog.h DESTINATION include/${PROJ_CIMPL})
+
+if (FEATURE_SUPPORT_ONBOARD_LOGGING)
+#-------------------------------------------------------------------------------
+# onboarding_log cli
+#-------------------------------------------------------------------------------
+set(BIN_SOURCES cimplog-onboarding.c main.c)
+add_executable(onboarding_log ${BIN_SOURCES} ${HEADERS})
+install (TARGETS onboarding_log DESTINATION bin)
+endif (FEATURE_SUPPORT_ONBOARD_LOGGING)

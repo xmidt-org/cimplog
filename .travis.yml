@@ -1,6 +1,17 @@
 language: c
+os:
+    - linux
+    - osx
+
+matrix:
+    include:
+        - os: linux
+          dist: trusty
+          sudo: required
 compiler:
     - gcc
+    - clang
+
 env:
   global:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
@@ -18,12 +29,13 @@ addons:
     branch_pattern: master
 
 before_install:
-    - sudo pip install codecov
-    - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo pip install codecov; fi
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx"   ]]; then brew install cunit; fi
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq; fi
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y -qq libcunit1 libcunit1-dev; fi
 
 install:
-    - sudo apt-get update -qq
-    - sudo apt-get install -y -qq libcunit1 libcunit1-dev lcov
 
 script:
     - mkdir build
@@ -31,7 +43,6 @@ script:
     - cmake ..
     - make
     - make test
-    - make coverage
 
 after_success:
-    - codecov
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then codecov; fi
