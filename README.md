@@ -6,6 +6,7 @@ Simple logging library for rdklogger
 [![codecov.io](http://codecov.io/github/Comcast/cimplog/coverage.svg?branch=master)](http://codecov.io/github/Comcast/cimplog?branch=master)
 [![Coverity](https://img.shields.io/coverity/scan/11572.svg)]("https://scan.coverity.com/projects/comcast-cimplog)
 [![Apache V2 License](http://img.shields.io/badge/license-Apache%20V2-blue.svg)](https://github.com/Comcast/cimplog/blob/master/LICENSE.txt)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=xmidt-org_cimplog&metric=alert_status)](https://sonarcloud.io/dashboard?id=xmidt-org_cimplog)
 
 # Building and Testing Instructions
 
