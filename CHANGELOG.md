@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [v1.0.3]
+- Add sonarcloud analysis tool.
+- Add the `__cimplog_rdk_generic()` function.
+
+## [v1.0.2]
+- Add onboarding feature
+- Update the init call.
+
+## [v1.0.1]
 - Fixes for building in CentOS
 - Fixes for building in MacOS
 - Reverted generic API to log messages into an additional module other than the primary module of a component
