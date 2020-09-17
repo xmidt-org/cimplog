@@ -114,7 +114,7 @@ jobs:
 
     - stage: release
       name: "Make a Release"
-      if: branch != main
+      if: branch != master
       script:
         - export VERSION=${TRAVIS_TAG##*v}
         - git archive --format=tar.gz --prefix=${TRAVIS_REPO_NAME}-${VERSION}/ -o ${TRAVIS_REPO_NAME}-${VERSION}.tar.gz ${TRAVIS_TAG}
