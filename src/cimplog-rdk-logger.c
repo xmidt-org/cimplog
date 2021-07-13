@@ -40,7 +40,7 @@ void __cimplog(const char *module, int level, const char *msg, ...)
         {
             fprintf(stderr, "\nERROR: RDK Logger not integrated for this module !!!\n");
             fprintf(stderr, " Provide cimplog method \"const char *rdk_logger_module_fetch(void)\" to get log prints !!\n");
-	          exit(0); // Not using RDKLogger is an Error. Terminate!
+	          return; // Not using RDKLogger is an Error. Return!
         }
         init_done = 1;
     }
