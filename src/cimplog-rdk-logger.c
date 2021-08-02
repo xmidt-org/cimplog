@@ -34,21 +34,25 @@ void __cimplog(const char *module, int level, const char *msg, ...)
 
     if( !init_done )
     {
-        RDK_LOGGER_INIT();
         rdk_logger_module = rdk_logger_module_fetch();
         if( NULL == rdk_logger_module )
         {
-            fprintf(stderr, "\nERROR: RDK Logger not integrated for this module !!!\n");
+            fprintf(stderr, "\nERROR: RDK Logger not integrated for this module - '%s' !!!\n",module);
             fprintf(stderr, " Provide cimplog method \"const char *rdk_logger_module_fetch(void)\" to get log prints !!\n");
-	          return; // Not using RDKLogger is an Error. Return!
+        }
+        else
+        {
+            RDK_LOGGER_INIT();
         }
         init_done = 1;
     }
 
     if( NULL == rdk_logger_module )
     {
-        //if RDK logger module is not defined, simple return - dont print.
-        // used when calling module is not interested in log prints
+        //If RDK logger module is not defined, use __cimplog_generic() to capture the logs.
+        //The logs will be capture to /rdklogs/logs/Consolelog.txt.0 if available or it
+        //will be printed on the console(stdout)
+        __cimplog_generic(module, msg, ...);
         return;
     }
 
