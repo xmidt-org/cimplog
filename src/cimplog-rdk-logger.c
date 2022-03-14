@@ -23,7 +23,7 @@
 #include "cimplog.h"
 
 #define DEBUG_INI_NAME		"/etc/debug.ini"
-#define MAX_BUF_SIZE 1024
+#define MAX_BUF_SIZE 512
 
 const char *__attribute__((weak)) rdk_logger_module_fetch(void);
 static int init_done = 0;
